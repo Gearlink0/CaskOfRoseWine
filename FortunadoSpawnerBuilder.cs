@@ -2,15 +2,14 @@ using Genkit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using XRL.World.ZoneBuilders;
 
-namespace XRL.World.Parts
+namespace XRL.World.ZoneBuilders
 {
   /* This class is basically copied from the XRL.World.Parts.RecorporealizationBoothSpawnerBuilder
   part which is used to spawn the recoming nook Gyl somewhere in Lake Hinnom. */
   public class Gearlink_CASKOFROSEWINE_FortunadoSpawnerBuilder : ZoneBuilderSandbox
   {
-    public void BuildZone(Zone zone)
+    public bool BuildZone(Zone zone)
     {
       InfluenceMapRegion influenceMapRegion = ZoneBuilderSandbox.GenerateInfluenceMap(
         zone,
@@ -41,6 +40,8 @@ namespace XRL.World.Parts
       }
       // Add the MapChunkPlacement widget.
       cell.AddObject("Gearlink_CASKOFROSEWINE_Fortunado3x3");
+
+      return true;
     }
   }
 }

@@ -22,8 +22,13 @@ namespace XRL.World.WorldBuilders
 			Location2D location = builder.popMutableLocationOfTerrain("Ruins");
       // Get that zone's ID.
 			string zoneID = Zone.XYToID(this.World, location.X, location.Y, 10);
-      // Call the FortunadoSpawnerBuilder to build the encounter in the chosen zone.
-      new Gearlink_CASKOFROSEWINE_FortunadoSpawnerBuilder().BuildZone( The.ZoneManager.GetZone(zoneID) );
+      /* Add the FortunadoSpawnerBuilder to the chosen zone so that it will build
+      the Fortunado encounter when the zone is loaded instead of at world gen. */
+      The.ZoneManager.AddZoneBuilder(
+        zoneID,
+        ZoneBuilderPriority.AFTER_TERRAIN,
+        "Gearlink_CASKOFROSEWINE_FortunadoSpawnerBuilder"
+      );
 
       /* Will log the ID of the zone being modified to the Player.log for debugging
       purposes. In game, you can use the wish goto:zoneID to teleport to the zone
