@@ -14,10 +14,19 @@ namespace XRL
     public int chance = 1;
 
     [NonSerialized]
+    /* Store a dictionary of the Zones the player visits while this system is
+    active so we can avoid spawning the encounter in a Zone when the player returns
+    to it. */
     public Dictionary<string, bool> Visited = new Dictionary<string, bool>();
 
+    /* Override this virtual method of IGameSystem so this system will do something
+    whenever a zone is activated. */
     public override void ZoneActivated(Zone zone) => this.CheckFortunadoSpawn(zone);
 
+    /* While string, int, and bool properties can just be marked as [Serializable]
+    to persist across the game being saved and loaded, more complicated data
+    types like a Dictionary need a custom serializer like this. These implementations
+    of LoadGame and SaveGame are taken from XRL.PsychicHunterSystem. */
     public override void LoadGame(SerializationReader Reader) => this.Visited = Reader.ReadDictionary<string, bool>();
 
     public override void SaveGame(SerializationWriter Writer) => Writer.Write<string, bool>(this.Visited);
